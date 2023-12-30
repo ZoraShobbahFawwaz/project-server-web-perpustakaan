@@ -2,16 +2,31 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Public } from 'src/public.decorator';
 
+//construcktor fungsi yg di panggil pertama
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  loginForUser(@Body()body: any) {
+    return 
   }
 
+  @Post('/login')
+  masook(@Body() body: CreateUserDto) {
+    return this.userService.masuk(body)
+  }
+
+  @Public()
+  @Post('create')
+  create(@Body() createUserDto: CreateUserDto) {
+    console.log('masuk sini')
+    return this.userService.createforpemula(createUserDto);
+  }
+
+  @Public()
   @Get()
   findAll() {
     return this.userService.findAll();
@@ -19,7 +34,12 @@ export class UserController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
+  }
+
+  @Get(':nim/user')
+  findOneByNim(@Param('nim') nim: string) {
+    return this.userService.findOneByNim(nim);
   }
 
   @Patch(':id')
@@ -31,4 +51,5 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
+
 }

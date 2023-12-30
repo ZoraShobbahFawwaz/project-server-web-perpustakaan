@@ -1,17 +1,15 @@
 import { IsString } from "class-validator";
 
-export class CreateUserDto {
+export class CreatePengembalianDto {
     @IsString()
     nama: string
 
     @IsString()
-    nim: string
+    judul_buku: string
 
     @IsString()
-    username: string
-
-    @IsString()
-    password: string
+    tanggal_pengembalian: string
 }
+
 
 
